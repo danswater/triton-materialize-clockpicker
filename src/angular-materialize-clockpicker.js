@@ -1,12 +1,61 @@
 ;( function () {
 	'use strict';
 
-	function mClockpicker ( mClockpickerDefaultOptions, moment ) {
+	function mClockpickerFactory () {
+
+		function strictParse ( twelvehour, string ) {
+			var regex;
+
+			if ( twelvehour ) {
+				regex = /^(\d{1,2}):(\d{1,2})\s*(AM|PM)$/i;
+			} else {
+				regex = /^(\d{1,2}):(\d{1,2})$/;
+			}
+
+			var match = string && string.trim().match( regex );
+
+			if ( !match ) {
+				return;
+			}
+
+			var pm     = match[ 3 ] && match[ 3 ].toUpperCase() === 'PM';
+			var hour   = parseInt( match[ 1 ], 10 );
+			var minute = parseInt( match[ 2 ], 10 );
+
+			if (minute > 59) {
+				return;
+			}
+
+			if ( twelvehour ) {
+				if ( hour < 1 || hour > 12 ) {
+					return;
+				}
+				hour = ( hour % 12 ) + ( pm ? 12 : 0 );
+			} else if ( hour > 23 ) {
+				return;
+			}
+
+			return {
+				'hour'   : hour,
+				'minute' : minute
+			};
+		}
+
+		function parseTime ( string ) {
+			return strictParse( true, string );
+		}
+
+		return {
+			'parseTime' : parseTime
+		};
+	}
+
+	function mClockpicker ( mClockpickerDefaultOptions, mClockpickerFactory, moment ) {
 
 		function link ( scope, element, attr, ngModel ) {
 			var options = angular.extend( {}, mClockpickerDefaultOptions, scope.$eval( attr.mClockpickerOptions ) );
 			
-			var formatTime = options.twelvehour ? 'hh:mm A' : 'HH:mm';
+			var formatTime;
 			
 			if ( options.twelvehour ) {
 				formatTime = 'hh:mm A';
@@ -14,17 +63,17 @@
 				formatTime = 'HH:mm';
 			}
 
-			console.log( ngModel.$modelValue );
-
 			element.pickatime( options );
 
 			function getModelValue () {
-				return ngModel.$modelValue ? ngModel.$modelValue.clone() : moment();
+				if ( ngModel.$modelValue ) {
+					return ngModel.$modelValue.clone();
+				}
+
+				return moment();
 			}
 
-			function render ( val ) {
-        		element.val( ngModel.$viewValue || '' );
-      		};
+      		var parseViewValue = mClockpickerFactory.parseTime;
 
 			scope.$watch( function () {
 				return ngModel.$modelValue && ngModel.$modelValue.unix && ngModel.$modelValue.unix();
@@ -32,13 +81,21 @@
 				var test =  ngModel.$formatters.reduceRight( function ( prev, formatter ) {
 					return formatter( prev );
 				}, ngModel.$modelValue );
-				console.log( 'WATCH', test );
-				render();
+				ngModel.$render();
 			} );
 
+			element.blur( function () {
+				if( ngModel.$valid ) {
+					element.val( getModelValue().local().format( formatTime ) );
+				}
+			} );
+
+			ngModel.$render = function render ( val ) {
+        		element.val( ngModel.$viewValue || '' );
+      		};
+
 			ngModel.$parsers.push( function ( val ) {
-				console.log( 'PARSERS', val );
-				var time = val;
+				var time = parseViewValue( val );;
 				ngModel.$setValidity( 'badFormat', Boolean( time ) );
 
 				if ( !time ) {
@@ -62,9 +119,7 @@
 			} );
 
 			ngModel.$formatters.push( function ( momentDate ) {
-				// var val = parseViewValue( ngModel.$viewValue );
-				console.log( '$formatters', ngModel.$viewValue );
-				var val = ngModel.$viewValue;
+				var val = parseViewValue( ngModel.$viewValue );
 
 				if ( !momentDate ) {
 					return '';
@@ -90,12 +145,13 @@
 		};
 	}
 
-	mClockpicker.$inject = [ 'mClockpickerDefaultOptions', 'moment' ];
+	mClockpicker.$inject = [ 'mClockpickerDefaultOptions', 'mClockpickerFactory', 'moment' ];
 
 	angular.module( 'angular.materialize.clockpicker', [
 		'angularMoment'
 	] )
 	.directive( 'mClockpicker', mClockpicker )
+	.factory( 'mClockpickerFactory', mClockpickerFactory )
 	.value( 'mClockpickerDefaultOptions', {
 		'twelvehour' : true,
 		'autoclose' : false,
