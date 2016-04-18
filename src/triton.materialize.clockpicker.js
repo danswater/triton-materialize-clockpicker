@@ -71,8 +71,22 @@
 			element.pickatime( options );
 
 			function getModelValue () {
-				if ( ngModel.$modelValue ) {
-					return ngModel.$modelValue.clone();
+				if ( ngModel.$modelValue && ngModel.$modelValue !== 'Invalid date' ) {
+					var momentDate = ngModel.$modelValue;
+
+					if ( typeof momentDate === 'string' ) {
+						var time = parseViewValue( momentDate );
+
+						var newDate = moment();
+						newDate = newDate.local();
+						newDate.hour( time.hour );
+						newDate.minute( time.minute );
+						newDate.second( 0 );
+
+						momentDate = newDate;
+					}
+
+					return momentDate.clone();
 				}
 
 				return moment();
@@ -131,6 +145,18 @@
 
 				if ( !momentDate || momentDate === 'Invalid date' ) {
 					return '';
+				}
+
+				if ( typeof momentDate === 'string' ) {
+					var time = parseViewValue( momentDate );
+
+					var newDate = moment();
+					newDate = newDate.local();
+					newDate.hour( time.hour );
+					newDate.minute( time.minute );
+					newDate.second( 0 );
+
+					momentDate = newDate;
 				}
 
 				var localMomentDate = momentDate.clone().local();
