@@ -1,10 +1,9 @@
-;( function () {
-	'use strict';
+'use strict';
 
-	function mClockpickerFactory () {
-
+( function () {
+	function tmClockpickerFactory () {
 		function strictParse ( twelvehour, string ) {
-			var regex;
+			var regex, isPm;
 
 			if ( twelvehour ) {
 				regex = /^(\d{1,2}):(\d{1,2})\s*(AM|PM)$/i;
@@ -22,7 +21,7 @@
 			var hour   = parseInt( match[ 1 ], 10 );
 			var minute = parseInt( match[ 2 ], 10 );
 
-			if (minute > 59) {
+			if ( minute > 59 ) {
 				return;
 			}
 
@@ -30,12 +29,19 @@
 				if ( hour < 1 || hour > 12 ) {
 					return;
 				}
-				hour = ( hour % 12 ) + ( pm ? 12 : 0 );
+
+				if ( pm ) {
+					isPm = 12;
+				} else {
+					isPm = 0;
+				}
+
+				hour = hour % 12 + isPm;
 			} else if ( hour > 23 ) {
 				return;
 			}
 
-			return {
+			return { // eslint-disable-line consistent-return
 				'hour'   : hour,
 				'minute' : minute
 			};
@@ -50,13 +56,12 @@
 		};
 	}
 
-	function mClockpicker ( mClockpickerDefaultOptions, mClockpickerFactory, moment ) {
-
+	function tmClockpicker ( tmClockpickerDefaultOptions, tmClockpickerFactory, moment ) { // eslint-disable-line no-shadow
 		function link ( scope, element, attr, ngModel ) {
-			var options = angular.extend( {}, mClockpickerDefaultOptions, scope.$eval( attr.mClockpickerOptions ) );
-			
+			var options = angular.extend( {}, tmClockpickerDefaultOptions, scope.$eval( attr.tmClockpickerOptions ) );
+
 			var formatTime;
-			
+
 			if ( options.twelvehour ) {
 				formatTime = 'hh:mm A';
 			} else {
@@ -73,29 +78,30 @@
 				return moment();
 			}
 
-      		var parseViewValue = mClockpickerFactory.parseTime;
+			var parseViewValue = tmClockpickerFactory.parseTime;
 
 			scope.$watch( function () {
 				return ngModel.$modelValue && ngModel.$modelValue.unix && ngModel.$modelValue.unix();
 			}, function () {
-				var test =  ngModel.$formatters.reduceRight( function ( prev, formatter ) {
+				ngModel.$formatters.reduceRight( function ( prev, formatter ) {
 					return formatter( prev );
 				}, ngModel.$modelValue );
 				ngModel.$render();
 			} );
 
 			element.blur( function () {
-				if( ngModel.$valid ) {
+				if ( ngModel.$valid ) {
 					element.val( getModelValue().local().format( formatTime ) );
 				}
 			} );
 
-			ngModel.$render = function render ( val ) {
-        		element.val( ngModel.$viewValue || '' );
-      		};
+			ngModel.$render = function render () {
+				element.val( ngModel.$viewValue || '' );
+			};
 
 			ngModel.$parsers.push( function ( val ) {
-				var time = parseViewValue( val );;
+				var time = parseViewValue( val );
+
 				ngModel.$setValidity( 'badFormat', Boolean( time ) );
 
 				if ( !time ) {
@@ -105,7 +111,8 @@
 				// sync to two way binding
 				var inUtc   = getModelValue().isUTC();
 				var newDate = moment( getModelValue() );
-				newDate     = newDate.local();
+
+				newDate = newDate.local();
 				newDate.hour( time.hour );
 				newDate.minute( time.minute );
 				newDate.second( 0 );
@@ -115,7 +122,6 @@
 				}
 
 				return newDate;
-
 			} );
 
 			ngModel.$formatters.push( function ( momentDate ) {
@@ -126,35 +132,36 @@
 				}
 
 				var localMomentDate = momentDate.clone().local();
-				
-				var isSameTime = !val || (val.hour === localMomentDate.hour() && val.minute === localMomentDate.minute());
+
+				var isSameTime = !val || val.hour === localMomentDate.hour() && val.minute === localMomentDate.minute();
 
 				if ( element.is( ':focus' ) && isSameTime ) {
 					return ngModel.$viewValue;
 				}
 
 				return localMomentDate.format( formatTime );
-
 			} );
 		}
 
 		return {
 			'restrict' : 'A',
-			'require' : 'ngModel',
-			'link' : link
+			'require'  : 'ngModel',
+			'link'     : link
 		};
 	}
 
-	mClockpicker.$inject = [ 'mClockpickerDefaultOptions', 'mClockpickerFactory', 'moment' ];
+	tmClockpicker.$inject = [ 'tmClockpickerDefaultOptions', 'tmClockpickerFactory', 'moment' ];
 
-	angular.module( 'angular.materialize.clockpicker', [
+	angular.module( 'triton.materialize.clockpicker', [
 		'angularMoment'
 	] )
-	.directive( 'mClockpicker', mClockpicker )
-	.factory( 'mClockpickerFactory', mClockpickerFactory )
-	.value( 'mClockpickerDefaultOptions', {
+	.directive( 'tmClockpicker', tmClockpicker )
+
+	.factory( 'tmClockpickerFactory', tmClockpickerFactory )
+
+	.value( 'tmClockpickerDefaultOptions', {
 		'twelvehour' : true,
-		'autoclose' : false,
-		'donetext' : 'ok'
+		'autoclose'  : false,
+		'donetext'   : 'ok'
 	} );
 } )();

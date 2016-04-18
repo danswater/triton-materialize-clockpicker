@@ -1,11 +1,25 @@
 {
-  "name": "angular-materialize-clockpicker",
+  "name": "triton-materialize-clockpicker",
   "version": "1.0.0",
-  "description": "a wrapper for chingyawhao/materialize-clockpicker based on linagora/angular-clockpicker",
+  "description": "An angular wrapper for [chingyawhao/materialize-clockpicker](https://github.com/chingyawhao/materialize-clockpicker) based on [linagora/angular-clockpicker](https://github.com/linagora/angular-clockpicker)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint": "eslint ./",
+    "jscs": "jscs ./",
+    "lint": "npm run eslint && npm run jscs",
+    "test": "karma start",
+    "build": "gulp build"
   },
   "author": "danswater",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "karma": "0.12.28",
+    "karma-mocha": "0.1.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-spec-reporter": "0.0.20",
+    "mocha": "~1.18.2",
+    "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.2"
+  }
 }

@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport", content="width=device-width, initial-scale=1">
   <title>clockpicker wrapper</title>
-  <link rel="stylesheet" type="text/css" href="../bower_components/materialize-clockpicker/css/materialize.min.css">
-  <link rel="stylesheet" type="text/css" href="../bower_components/materialize-clockpicker/css/materialize.clockpicker.css">
+  <link rel="stylesheet" type="text/css" href="../bower_components/Materialize/dist/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="../bower_components/materialize-clockpicker/dist/css/materialize.clockpicker.css">
 </head>
 <body ng-app="app">
 
@@ -14,7 +14,7 @@
         Date : {{time.format('hh:mm A')}}
     </p>
     <p>
-        <input type="text" data-ng-model='time' data-m-clockpicker data-m-clockpicker-options='options'></input>
+        <input type="text" data-ng-model='time' data-tm-clockpicker data-tm-clockpicker-options='options'></input>
         <button type="button" data-ng-click='randomTime()'>Random time</button>
     </p>
   </div>
@@ -23,12 +23,12 @@
   <script src="../bower_components/angular/angular.js"></script>
   <script src="../bower_components/moment/moment.js"></script>
   <script src="../bower_components/angular-moment/angular-moment.js"></script>
-  <script src="../bower_components/materialize-clockpicker/js/materialize.clockpicker.js"></script>
-  <script src="../src/angular-materialize-clockpicker.js"></script>
+  <script src="../bower_components/materialize-clockpicker/dist/js/materialize.clockpicker.js"></script>
+  <script src="../src/triton.materialize.clockpicker.js"></script>
   <script type="text/javascript">
     ( function () {
       angular.module( 'app', [
-        'angular.materialize.clockpicker'
+        'triton.materialize.clockpicker'
       ] )
       .controller( 'dateCtrl', function ( $scope ) {
         $scope.options = {
@@ -40,5 +40,5 @@
   </script>
 </body>
 </html>
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
+
+
