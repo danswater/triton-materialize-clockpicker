@@ -1,6 +1,6 @@
 'use strict';
 
-( function () {
+; ( function () {
 	function tmClockpickerFactory () {
 		function strictParse ( twelvehour, string ) {
 			var regex, isPm;
@@ -83,9 +83,11 @@
 			scope.$watch( function () {
 				return ngModel.$modelValue && ngModel.$modelValue.unix && ngModel.$modelValue.unix();
 			}, function () {
-				ngModel.$formatters.reduceRight( function ( prev, formatter ) {
+				var val = ngModel.$formatters.reduceRight( function ( prev, formatter ) {
 					return formatter( prev );
 				}, ngModel.$modelValue );
+
+				ngModel.$setViewValue( val );
 				ngModel.$render();
 			} );
 
@@ -155,6 +157,7 @@
 	angular.module( 'triton.materialize.clockpicker', [
 		'angularMoment'
 	] )
+
 	.directive( 'tmClockpicker', tmClockpicker )
 
 	.factory( 'tmClockpickerFactory', tmClockpickerFactory )

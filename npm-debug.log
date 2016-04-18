@@ -1,0 +1,77 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/francis/.linuxbrew/Cellar/node/5.10.0/bin/node',
+1 verbose cli   '/home/francis/.linuxbrew/bin/npm',
+1 verbose cli   'info',
+1 verbose cli   'materialize-clockpicker' ]
+2 info using npm@3.8.3
+3 info using node@v5.10.0
+4 silly mapToRegistry name materialize-clockpicker
+5 silly mapToRegistry using default registry
+6 silly mapToRegistry registry https://registry.npmjs.org/
+7 silly mapToRegistry data Result {
+7 silly mapToRegistry   raw: 'materialize-clockpicker',
+7 silly mapToRegistry   scope: null,
+7 silly mapToRegistry   name: 'materialize-clockpicker',
+7 silly mapToRegistry   rawSpec: '',
+7 silly mapToRegistry   spec: 'latest',
+7 silly mapToRegistry   type: 'tag' }
+8 silly mapToRegistry uri https://registry.npmjs.org/materialize-clockpicker
+9 verbose request uri https://registry.npmjs.org/materialize-clockpicker
+10 verbose request no auth needed
+11 info attempt registry request try #1 at 10:58:18 AM
+12 verbose request id 3501b699f03b6368
+13 http request GET https://registry.npmjs.org/materialize-clockpicker
+14 http 404 https://registry.npmjs.org/materialize-clockpicker
+15 verbose headers { 'content-type': 'application/json',
+15 verbose headers   'cache-control': 'max-age=0',
+15 verbose headers   'content-length': '2',
+15 verbose headers   'accept-ranges': 'bytes',
+15 verbose headers   date: 'Mon, 18 Apr 2016 02:58:22 GMT',
+15 verbose headers   via: '1.1 varnish',
+15 verbose headers   age: '0',
+15 verbose headers   connection: 'keep-alive',
+15 verbose headers   'x-served-by': 'cache-ord1747-ORD',
+15 verbose headers   'x-cache': 'MISS',
+15 verbose headers   'x-cache-hits': '0',
+15 verbose headers   'x-timer': 'S1460948302.805168,VS0,VE83',
+15 verbose headers   vary: 'Accept-Encoding' }
+16 silly get cb [ 404,
+16 silly get   { 'content-type': 'application/json',
+16 silly get     'cache-control': 'max-age=0',
+16 silly get     'content-length': '2',
+16 silly get     'accept-ranges': 'bytes',
+16 silly get     date: 'Mon, 18 Apr 2016 02:58:22 GMT',
+16 silly get     via: '1.1 varnish',
+16 silly get     age: '0',
+16 silly get     connection: 'keep-alive',
+16 silly get     'x-served-by': 'cache-ord1747-ORD',
+16 silly get     'x-cache': 'MISS',
+16 silly get     'x-cache-hits': '0',
+16 silly get     'x-timer': 'S1460948302.805168,VS0,VE83',
+16 silly get     vary: 'Accept-Encoding' } ]
+17 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/materialize-clockpicker
+17 verbose stack     at makeError (/home/francis/.linuxbrew/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+17 verbose stack     at CachingRegistryClient.<anonymous> (/home/francis/.linuxbrew/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+17 verbose stack     at Request._callback (/home/francis/.linuxbrew/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+17 verbose stack     at Request.self.callback (/home/francis/.linuxbrew/lib/node_modules/npm/node_modules/request/request.js:199:22)
+17 verbose stack     at emitTwo (events.js:100:13)
+17 verbose stack     at Request.emit (events.js:185:7)
+17 verbose stack     at Request.<anonymous> (/home/francis/.linuxbrew/lib/node_modules/npm/node_modules/request/request.js:1036:10)
+17 verbose stack     at emitOne (events.js:95:20)
+17 verbose stack     at Request.emit (events.js:182:7)
+17 verbose stack     at IncomingMessage.<anonymous> (/home/francis/.linuxbrew/lib/node_modules/npm/node_modules/request/request.js:963:12)
+18 verbose statusCode 404
+19 verbose pkgid materialize-clockpicker
+20 verbose cwd /home/francis/projects/angular-materialize-clockpicker
+21 error Linux 3.16.0-30-generic
+22 error argv "/home/francis/.linuxbrew/Cellar/node/5.10.0/bin/node" "/home/francis/.linuxbrew/bin/npm" "info" "materialize-clockpicker"
+23 error node v5.10.0
+24 error npm  v3.8.3
+25 error code E404
+26 error 404 Registry returned 404 for GET on https://registry.npmjs.org/materialize-clockpicker
+27 error 404
+28 error 404 'materialize-clockpicker' is not in the npm registry.
+29 error 404 You should bug the author to publish it (or use the name yourself!)
+30 error 404 Note that you can also install from a
+31 error 404 tarball, folder, http url, or git url.
+32 verbose exit [ 1, true ]
