@@ -14,4 +14,9 @@ gulp.task( 'js', function () {
 		.pipe( gulp.dest( './dist' ) );
 } );
 
-gulp.task( 'build', [ 'js' ] );
+gulp.task( 'css', function () {
+	return gulp.src( './src/**/*.css' )
+	.pipe( gulp.dest( './dist' ) );
+} );
+
+gulp.task( 'build', [ 'js', 'css' ] );
