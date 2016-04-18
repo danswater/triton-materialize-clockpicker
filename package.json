@@ -1,6 +1,6 @@
 {
   "name": "triton-materialize-clockpicker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An angular wrapper for [chingyawhao/materialize-clockpicker](https://github.com/chingyawhao/materialize-clockpicker) based on [linagora/angular-clockpicker](https://github.com/linagora/angular-clockpicker)",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-bump": "^2.1.0",
     "karma": "0.12.28",
     "karma-mocha": "0.1.1",
     "karma-phantomjs-launcher": "^0.2.1",

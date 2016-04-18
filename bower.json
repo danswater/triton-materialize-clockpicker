@@ -2,7 +2,7 @@
   "name"        : "triton-materialize-clockpicker",
   "description" : "An angular wrapper for [chingyawhao/materialize-clockpicker](https://github.com/chingyawhao/materialize-clockpicker) based on [linagora/angular-clockpicker](https://github.com/linagora/angular-clockpicker)",
   "main"        : "src/triton.materialize.clockpicker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
      "angular",
      "materialize",
