@@ -3,10 +3,10 @@
   "description": "An angular wrapper for [chingyawhao/materialize-clockpicker](https://github.com/chingyawhao/materialize-clockpicker) based on [linagora/angular-clockpicker](https://github.com/linagora/angular-clockpicker)",
   "main": [
       "./dist/materialize.clockpicker.css",
-      "./dist/materialize.clockpicker.js"
+      "./dist/materialize.clockpicker.js",
       "./dist/triton.materialize.clockpicker.js"
   ],
-  "version": "1.0.6",
+  "version": "1.0.7",
   "keywords": [
     "angular",
     "materialize",
