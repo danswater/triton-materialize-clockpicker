@@ -129,7 +129,7 @@
 			ngModel.$formatters.push( function ( momentDate ) {
 				var val = parseViewValue( ngModel.$viewValue );
 
-				if ( !momentDate ) {
+				if ( !momentDate || momentDate === 'Invalid date' ) {
 					return '';
 				}
 

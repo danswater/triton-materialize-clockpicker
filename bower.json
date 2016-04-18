@@ -6,7 +6,7 @@
       "./dist/materialize.clockpicker.js",
       "./dist/triton.materialize.clockpicker.js"
   ],
-  "version": "1.0.7",
+  "version": "1.0.8",
   "keywords": [
     "angular",
     "materialize",
