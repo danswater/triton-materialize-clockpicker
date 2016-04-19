@@ -6,7 +6,7 @@
       "./dist/materialize.clockpicker.js",
       "./dist/triton.materialize.clockpicker.js"
   ],
-  "version": "1.0.8",
+  "version": "1.0.9",
   "keywords": [
     "angular",
     "materialize",
@@ -38,5 +38,8 @@
     "sinon-chai": "~2.8.0",
     "sinon-1.15.4": "http://sinonjs.org/releases/sinon-1.15.4.js",
     "lodash": "~2.4.1"
+  },
+  "resolutions": {
+    "moment": "2.10.3"
   }
 }

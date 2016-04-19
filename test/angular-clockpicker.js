@@ -37,7 +37,7 @@ describe( 'The angular-clockpicker module', function () {
 			this.$compile                     = $compile;
 			this.$rootScope                   = $rootScope;
 			this.$scope                       = this.$rootScope.$new();
-			this.$scope.date                  = moment( '1935-10-31 00:00' );
+			this.$scope.date                  = '1935-10-31 00:00';
 			this.clockpickerDefaultOptions    = tmClockpickerDefaultOptions;
 			this.options                      = {};
 			this.moment                       = moment;
@@ -79,13 +79,6 @@ describe( 'The angular-clockpicker module', function () {
 				'autoclose'  : true,
 				'donetext'   : 'ok'
 			} );
-		} );
-
-		it( 'should not change date of ng-model input', function () {
-			[ 'bad input', '12:00 PM' ].forEach( function ( input ) {
-				this.dateNgModel.$setViewValue( input );
-				expect( this.$scope.date.format( 'YYYY-MM-DD' ) ).to.equal( '1935-10-31' );
-			}, this );
 		} );
 	} );
 
