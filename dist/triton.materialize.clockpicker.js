@@ -48,6 +48,9 @@
 		}
 
 		function parseTime ( string ) {
+			if ( !string ) {
+				return null;
+			}
 			return strictParse( true, string );
 		}
 
@@ -72,10 +75,10 @@
 
 			function getModelValue () {
 				if ( ngModel.$modelValue ) {
-					return ngModel.$modelValue.clone();
+					return ngModel.$modelValue;
 				}
 
-				return moment();
+				return moment().local().format( formatTime );
 			}
 
 			var parseViewValue = tmClockpickerFactory.parseTime;
@@ -93,7 +96,7 @@
 
 			element.blur( function () {
 				if ( ngModel.$valid ) {
-					element.val( getModelValue().local().format( formatTime ) );
+					element.val( getModelValue() );
 				}
 			} );
 
@@ -110,38 +113,25 @@
 					return getModelValue();
 				}
 
-				// sync to two way binding
-				var inUtc   = getModelValue().isUTC();
-				var newDate = moment( getModelValue() );
-
-				newDate = newDate.local();
-				newDate.hour( time.hour );
-				newDate.minute( time.minute );
-				newDate.second( 0 );
-
-				if ( inUtc ) {
-					return newDate.utc;
-				}
-
-				return newDate;
+				return val;
 			} );
 
 			ngModel.$formatters.push( function ( momentDate ) {
 				var val = parseViewValue( ngModel.$viewValue );
 
-				if ( !momentDate || momentDate === 'Invalid date' ) {
+				if ( !momentDate ) {
 					return '';
 				}
 
-				var localMomentDate = momentDate.clone().local();
+				var localMomentDate = parseViewValue( momentDate );
 
-				var isSameTime = !val || val.hour === localMomentDate.hour() && val.minute === localMomentDate.minute();
+				var isSameTime = !val || val.hour === localMomentDate.hour && val.minute === localMomentDate.minute;
 
 				if ( element.is( ':focus' ) && isSameTime ) {
 					return ngModel.$viewValue;
 				}
 
-				return localMomentDate.format( formatTime );
+				return momentDate;
 			} );
 		}
 
