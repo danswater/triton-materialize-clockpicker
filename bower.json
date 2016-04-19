@@ -6,7 +6,7 @@
       "./dist/materialize.clockpicker.js",
       "./dist/triton.materialize.clockpicker.js"
   ],
-  "version": "1.0.11",
+  "version": "1.0.12",
   "keywords": [
     "angular",
     "materialize",
@@ -27,10 +27,9 @@
   "dependencies": {
     "angular": "1.3",
     "angular-moment": "1.0",
-    "materialize-clockpicker": "git@github.com:chingyawhao/materialize-clockpicker.git#master",
     "jquery": "2.1",
     "moment": "^2.12.0",
-    "Materialize": "materialize#^0.97.6"
+    "materialize": "0.97.2"
   },
   "devDependencies": {
     "chai": "~3.0.0",
