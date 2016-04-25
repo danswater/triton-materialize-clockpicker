@@ -6,7 +6,7 @@
       "./dist/materialize.clockpicker.js",
       "./dist/triton.materialize.clockpicker.js"
   ],
-  "version": "1.0.17",
+  "version": "1.0.18",
   "keywords": [
     "angular",
     "materialize",
@@ -40,6 +40,6 @@
   },
   "resolutions": {
     "moment"      : "2.10.6",
-    "materialize" : "master"
+    "materialize" : "0.97.6"
   }
 }
